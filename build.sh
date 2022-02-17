@@ -12,7 +12,7 @@
 set -e
 
 # Set MIPSEL before calling the script to change the default installation directory path
-INSTALL_PATH="${MIPSEL:-/usr/local/mipsel-none-elf}
+INSTALL_PATH="${MIPSEL:-/usr/local/}"
 
 # Set target for toolchain
 TARGET=mipsel-none-elf
@@ -57,8 +57,9 @@ popd
 mkdir binutils_mips
 pushd binutils_mips
 ../"binutils-$BINUTILS_V"/configure --quiet \
-  --prefix="$INSTALL_PATH" --target=${TARGET} \
-  --disable-docs --disable-nls --with-float=soft
+  --prefix="$INSTALL_PATH" \
+  --target=${TARGET} --disable-docs --disable-nls \
+  --with-float=soft
 make --quiet -j "$JOBS"
 make --quiet -j "$JOBS"  install-strip
 popd
@@ -77,4 +78,4 @@ make --quiet -j "$JOBS" install-strip
 popd
 
 rm -rf binutils-$BINUTILS_V binutils-$BINUTILS_V.tar.gz \
-       gcc-$GCC_V gcc-$GCC_V.tar.gz
+       gcc-$GCC_V gcc-$GCC_V.tar.gz binutils_mips gcc_mips
