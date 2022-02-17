@@ -1,7 +1,7 @@
 # Stage 1 - Build the toolchain
 FROM arm32v7/debian:bullseye
 
-ARG MIPSEL=/cross-mipsel-none-elf
+ARG MIPSEL=/mipsel-none-elf
 ENV MIPSEL=${MIPSEL}
 
 # install dependencies
@@ -21,7 +21,7 @@ RUN ./build.sh
 
 # Stage 2 - Prepare minimal image
 FROM arm32v7/debian:bullseye
-ARG MIPSEL=/cross-mipsel-none-elf
+ARG MIPSEL=/mipsel-none-elf
 ENV MIPSEL=${MIPSEL}
 ENV PATH="${MIPSEL}/bin:$PATH"
 
